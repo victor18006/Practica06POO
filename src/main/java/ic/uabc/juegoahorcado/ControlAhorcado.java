@@ -731,21 +731,16 @@ public class ControlAhorcado extends javax.swing.JFrame {
     public void avanceJuego(char letra) {
         if (ahorcado.letraIntentada(letra)) {
             JOptionPane.showMessageDialog(this, "Letra ya utilizada. (Menos 3 puntos)");
-            //System.out.println("Letra ya utilizada. (Menos 3 puntos)");
             ((Jugador) ahorcado.jugadores.get(turnoJugador)).modificarPuntaje(-3);
-            //System.out.println("\nJugador " + jugador.getNombre() + ", puntos al momento: " + jugador.getPuntaje());
         } else {
             ahorcado.letrasIntentadas.add(letra);
             if (ahorcado.frase.adivinarLetra(letra)) {
                 int apariciones = ahorcado.frase.contarApariciones(letra);
                 ((Jugador) ahorcado.jugadores.get(turnoJugador)).modificarPuntaje(3 * apariciones);
                 JOptionPane.showMessageDialog(this, "¡Adivinaste una letra! Puntos ganados: " + (3 * apariciones));
-                //System.out.println("Frase: " + frase.mostrarFrase());
-                //System.out.println("\nJugador " + jugador.getNombre() + ", puntos al momento: " + jugador.getPuntaje());
             } else {
                 ((Jugador) ahorcado.jugadores.get(turnoJugador)).modificarPuntaje(-1);
                 JOptionPane.showMessageDialog(this, "La letra no está en la frase. (Menos -1 punto)");
-                //System.out.println("\nJugador " + jugador.getNombre() + ", puntos al momento: " + jugador.getPuntaje());
             }
 
             if (ahorcado.frase.fraseCompleta()) {
