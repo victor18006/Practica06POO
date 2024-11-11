@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class JuegoAhorcado {
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         int numeroJugadores;
         Scanner scanner = new Scanner(System.in);
 
@@ -34,5 +34,8 @@ public class JuegoAhorcado {
 
         Ahorcado ahorcado = new Ahorcado(jugadores, puntosObjetivo);
         ahorcado.iniciarJuego();
+    }*/
+    public static void main(String[] args) {
+        (new ControlAhorcado()).setVisible(true);
     }
 }

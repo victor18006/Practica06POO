@@ -23,14 +23,14 @@ public class BancoDeFrases {
 
     // Método para inicializar el banco con frases y sus categorías
     private void inicializarFrases() {
-        frases.put("fruta", "Ensalda de Manzana");
-        frases.put("fruta", "Agua de Sandia");
-        frases.put("fruta", "Salsa de Aguacate");
-        frases.put("numero", "Dos bicicletas");
-        frases.put("numero", "Tres platos");
-        frases.put("comida", "Sopa");
-        frases.put("comida", "Comida china");
-        frases.put("comida", "Ramen");
+        frases.put("fruta1", "Ensalada de Manzana");
+        frases.put("fruta2", "Agua de Sandia");
+        frases.put("fruta3", "Salsa de Aguacate");
+        frases.put("numero1", "Dos bicicletas");
+        frases.put("numero2", "Tres platos");
+        frases.put("comida1", "Sopa");
+        frases.put("comida2", "Comida china");
+        frases.put("comida3", "Ramen");
     }
 
     // Método para obtener una frase aleatoria del banco
