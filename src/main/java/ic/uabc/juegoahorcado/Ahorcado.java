@@ -6,7 +6,6 @@ package ic.uabc.juegoahorcado;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  *
@@ -21,6 +20,7 @@ public class Ahorcado {
     private int puntosObjetivo;
     private BancoDeFrases bancoDeFrases;
     private int contadorRonda;
+    protected Jugador ganador;
 
     public Ahorcado(List<Jugador> jugadores, int puntosObjetivo) {
         this.jugadores = jugadores;
@@ -49,4 +49,26 @@ public class Ahorcado {
     public boolean letraIntentada(char letra){
         return letrasIntentadas.contains(letra);
     }
+    
+    public void buscarGanador() {
+        /*while (jugadores.stream().noneMatch(j -> j.getPuntaje() >= puntosObjetivo)) {
+            letrasIntentadas.clear();
+            frase = new Frase(bancoDeFrases.obtenerFraseAleatoria());  // Obtener una nueva frase aleatoria
+            contadorRonda++;
+            System.out.println("\nRonda " + contadorRonda + ":");
+            jugarRonda();
+            System.out.println("Puntaje Objetivo: " + puntosObjetivo);
+            mostrarPuntajes();
+        }*/
+        this.ganador = jugadores.stream().max((j1, j2) -> Integer.compare(j1.getPuntaje(), j2.getPuntaje())).orElse(null);  // Si la lista está vacía, ganador será null
+/*
+        Jugador ganador = jugadores.stream().max((j1, j2) -> Integer.compare(j1.getPuntaje(), j2.getPuntaje())).orElse(null);
+        if (ganador != null) {
+            //System.out.println("¡El ganador es " + ganador.getNombre() + " con " + ganador.getPuntaje() + " puntos!");
+        }*/
+    }
+    
+    /*public void determinarGanador() {
+        this.ganador = jugadores.stream().max((j1, j2) -> Integer.compare(j1.getPuntaje(), j2.getPuntaje())).orElse(null);  // Si la lista está vacía, ganador será null
+    }*/
 }

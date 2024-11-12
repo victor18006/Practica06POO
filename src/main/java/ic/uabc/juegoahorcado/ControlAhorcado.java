@@ -21,6 +21,7 @@ public class ControlAhorcado extends javax.swing.JFrame {
     private int jugadoresCantidad;
     private int turnoJugador = 0;
     private char letra;
+    private boolean puntajeLogrado;
 
     /**
      * Creates new form ControlAhorcado
@@ -500,6 +501,7 @@ public class ControlAhorcado extends javax.swing.JFrame {
     private void iniciarJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarJuegoActionPerformed
         // TODO add your handling code here:
         contadorRondas = 1;
+        puntajeLogrado = false;
 
         puntosObjetivo = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el puntaje a alcanzar:"));
 
@@ -738,18 +740,31 @@ public class ControlAhorcado extends javax.swing.JFrame {
                 int apariciones = ahorcado.frase.contarApariciones(letra);
                 ((Jugador) ahorcado.jugadores.get(turnoJugador)).modificarPuntaje(3 * apariciones);
                 JOptionPane.showMessageDialog(this, "¡Adivinaste una letra! Puntos ganados: " + (3 * apariciones));
+                turnoJugador--;
             } else {
                 ((Jugador) ahorcado.jugadores.get(turnoJugador)).modificarPuntaje(-1);
                 JOptionPane.showMessageDialog(this, "La letra no está en la frase. (Menos -1 punto)");
             }
 
             if (ahorcado.frase.fraseCompleta()) {
+                turnoJugador++;
                 ((Jugador) ahorcado.jugadores.get(turnoJugador)).modificarPuntaje(5);
                 JOptionPane.showMessageDialog(this, "¡Frase completada!");
-                if (((Jugador) ahorcado.jugadores.get(turnoJugador)).getPuntaje() >= puntosObjetivo) {
-                    JOptionPane.showMessageDialog(this, "Puntaje final: " + ((Jugador) ahorcado.jugadores.get(turnoJugador)).getPuntaje());
-                    JOptionPane.showMessageDialog(this, ((Jugador) ahorcado.jugadores.get(turnoJugador)).getNombre() + " ha ganado el juego!", "¡Ganador!", 1);
-                    desactivarLetras();
+                for (int i = 0; i < ahorcado.jugadores.size(); i++) {
+                    if (((Jugador) ahorcado.jugadores.get(i)).getPuntaje() >= puntosObjetivo) {
+                        puntajeLogrado = true;
+                    }
+                }
+                turnoJugador--;
+                if (puntajeLogrado) {
+                    ahorcado.buscarGanador();
+                    //JOptionPane.showMessageDialog(this, "Puntaje final: " + ((Jugador) ahorcado.jugadores.get(turnoJugador)).getPuntaje());
+                    if (ahorcado.ganador != null) {
+                        JOptionPane.showMessageDialog(this, ahorcado.ganador.getNombre() + " ha ganado el juego!", "¡Ganador!", 1);
+                        JOptionPane.showMessageDialog(this, "Puntaje final: " + ahorcado.ganador.getPuntaje());
+                        fraseAhorcado.setText("" + ahorcado.frase.mostrarFrase());
+                        desactivarLetras();
+                    }
                 } else {
                     ahorcado.clearLetrasIntentadas();
                     ahorcado.nuevaFrase();
@@ -762,10 +777,12 @@ public class ControlAhorcado extends javax.swing.JFrame {
         if (turnoJugador == ahorcado.jugadores.size()) {
             turnoJugador = 0;
         }
-        nombreJugadorTurno.setText("" + ((Jugador) ahorcado.jugadores.get(turnoJugador)).getNombre());
-        puntajeJugador.setText("" + ((Jugador) ahorcado.jugadores.get(turnoJugador)).getPuntaje());
-        numeroRonda.setText("" + contadorRondas);
-        fraseAhorcado.setText("" + ahorcado.frase.mostrarFrase());
+        if (!puntajeLogrado) {
+            nombreJugadorTurno.setText("" + ((Jugador) ahorcado.jugadores.get(turnoJugador)).getNombre());
+            puntajeJugador.setText("" + ((Jugador) ahorcado.jugadores.get(turnoJugador)).getPuntaje());
+            numeroRonda.setText("" + contadorRondas);
+            fraseAhorcado.setText("" + ahorcado.frase.mostrarFrase());
+        }
     }
 
     public void desactivarLetras() {
