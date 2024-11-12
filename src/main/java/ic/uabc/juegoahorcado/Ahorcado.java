@@ -51,24 +51,6 @@ public class Ahorcado {
     }
     
     public void buscarGanador() {
-        /*while (jugadores.stream().noneMatch(j -> j.getPuntaje() >= puntosObjetivo)) {
-            letrasIntentadas.clear();
-            frase = new Frase(bancoDeFrases.obtenerFraseAleatoria());  // Obtener una nueva frase aleatoria
-            contadorRonda++;
-            System.out.println("\nRonda " + contadorRonda + ":");
-            jugarRonda();
-            System.out.println("Puntaje Objetivo: " + puntosObjetivo);
-            mostrarPuntajes();
-        }*/
         this.ganador = jugadores.stream().max((j1, j2) -> Integer.compare(j1.getPuntaje(), j2.getPuntaje())).orElse(null);  // Si la lista está vacía, ganador será null
-/*
-        Jugador ganador = jugadores.stream().max((j1, j2) -> Integer.compare(j1.getPuntaje(), j2.getPuntaje())).orElse(null);
-        if (ganador != null) {
-            //System.out.println("¡El ganador es " + ganador.getNombre() + " con " + ganador.getPuntaje() + " puntos!");
-        }*/
     }
-    
-    /*public void determinarGanador() {
-        this.ganador = jugadores.stream().max((j1, j2) -> Integer.compare(j1.getPuntaje(), j2.getPuntaje())).orElse(null);  // Si la lista está vacía, ganador será null
-    }*/
 }
